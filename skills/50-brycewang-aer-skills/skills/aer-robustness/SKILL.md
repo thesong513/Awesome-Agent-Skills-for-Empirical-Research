@@ -111,6 +111,54 @@ Keep main-text robustness to **one table** with each row a different specificati
 - Magnitude differences are explained in the text, not left to the reader to compute
 - Sample-size changes across rows are flagged
 
+## StatsPAI Tool Bindings
+
+<!-- tool-bindings -->
+When a StatsPAI MCP server is connected, drive the referee-anticipating battery
+through **validated tools** rather than hand-rolled scripts — and let
+`audit_result` enumerate what is still missing instead of guessing. The full
+registry lives in `skills/aer-statspai/SKILL.md`.
+
+| Check | Call (StatsPAI) | Do not hand-roll |
+|---|---|---|
+| Missing-checks enumeration | `audit_result` | picking robustness checks from memory |
+| Specification curve | `spec_curve` | a hand-picked grid of two flattering specs |
+| Few-cluster inference | `wild_cluster_bootstrap`, `twoway_cluster` | default cluster-robust SEs with < 30 clusters |
+| Spatial correlation | `conley` | ignoring spatial dependence in geographic data |
+| Pre-trends sensitivity | `honest_did`, `honest_did_from_result` | asserting parallel trends from a flat pre-period |
+| Selection on unobservables | `oster_delta`, `oster_bounds`, `sensitivity_from_result` | a hand-rolled "controls barely move the coefficient" claim |
+| Robustness value (partial R²) | `robustness_value` | a coefficient-stability table with no partial-R² sensitivity |
+| Differential attrition | `lee_bounds` | assuming attrition is "balanced" without trimming bounds |
+| Observational confounding | `evalue_from_result` | a verbal "unobservables would have to be huge" argument |
+| Heterogeneity / CATE | `causal_forest`, `metalearner` | subgroup splits mined until one is significant |
+| Multiple-outcome FWER | `romano_wolf` | reporting many outcomes with uncorrected p-values |
+<!-- /tool-bindings -->
+
+## Repository Resources
+
+Bundled with the installed skill, no repository checkout needed --- read it
+before the repo resources below:
+
+- `references/robustness-menu.md` --- required-vs-optional robustness menu with package calls and reporting formats
+
+When working from the AER-skills repository or plugin bundle, load only the
+resource needed for the paper's design:
+
+- Method-specific diagnostics and citations: `docs/methods-reference.md`
+- Robustness implementation starting points: `templates/stata/04_robustness.do`, `templates/r/04_robustness.R`, or `templates/python/robustness.py`
+- Heterogeneity implementation starting points: `templates/stata/05_heterogeneity.do`, `templates/r/05_heterogeneity.R`, or `templates/python/heterogeneity.py`
+
+## Coverage Gate
+
+The empirical section is referee-ready only when **all** are present and theory-motivated (not mined):
+
+- [ ] Robustness spans specification, sample, outcome definition, clustering, and estimator
+- [ ] Heterogeneity is mechanism-predicted (interaction form), labeled pre-specified vs. exploratory
+- [ ] Mechanism shows both channel evidence and explicit ruling-out of the 2-3 leading alternatives
+- [ ] Placebo / falsification covers pre-treatment, cross-unit, and outcome placebo as applicable
+- [ ] Each of the top-5 anticipated referee comments has a visible pre-emption in the paper
+- [ ] Any null is reported with demonstrated power and tight CIs, never over-claimed as "no effect"
+
 ## Handoff
 
 ```text
@@ -119,7 +167,7 @@ HETEROGENEITY: <pre-specified / exploratory>
 MECHANISM EVIDENCE: <channel / ruling-out / both>
 PLACEBO TESTS: <list>
 ANTICIPATED REFEREE COMMENTS PRE-EMPTED: <count>
-NEXT SKILL: <aer-introduction | aer-tables-figures>
+NEXT SKILL: <aer-paper-body | aer-tables-figures>
 ```
 
 ## Anti-Patterns

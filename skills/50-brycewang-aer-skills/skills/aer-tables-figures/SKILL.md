@@ -1,6 +1,6 @@
 ---
 name: aer-tables-figures
-description: Use when constructing or revising regression tables, descriptive statistics tables, or figures for an AER, AER:Insights, or AEJ manuscript. Implements AER booktabs house style, the standard regression-table layout, and the figure-notes convention.
+description: Use when constructing or revising regression tables, descriptive statistics tables, or figures after results are estimated and before submission for an AER, AER:Insights, or AEJ manuscript. Implements AER booktabs house style, regression-table layout, and figure-note conventions.
 ---
 
 # AER Tables and Figures
@@ -141,7 +141,7 @@ AER convention: `*** p<0.01, ** p<0.05, * p<0.1`. Some authors and Angrist-Pisch
 4. Sample restrictions
 5. N (observations or clusters)
 
-## Common Mistakes
+## Anti-Patterns
 
 - 14-column main results table — readers cannot scan
 - Standard errors in brackets and parentheses in the same paper
@@ -164,6 +164,11 @@ AER convention: `*** p<0.01, ** p<0.05, * p<0.1`. Some authors and Angrist-Pisch
 
 ## Repository Resources
 
+Bundled with the installed skill, no repository checkout needed --- read it
+before the repo resources below:
+
+- `references/exhibit-cookbook.md` --- booktabs anatomy, export snippets, notes template, figure rules
+
 When working from the AER-skills repository or plugin bundle, load only the relevant table/figure scaffold:
 
 - Stata: `templates/stata/06_tables.do`
@@ -177,5 +182,5 @@ MAIN TABLES: <count>
 APPENDIX TABLES: <count>
 FIGURES: <count>
 STYLE COMPLIANT: <yes / list of remaining fixes>
-NEXT SKILL: <aer-replication | aer-submission>
+NEXT SKILL: <aer-consistency | aer-replication>
 ```
